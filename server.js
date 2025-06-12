@@ -20,7 +20,7 @@ const s3 = new S3Client({
 app.post('/ask', async (req, res) => {
     const { question } = req.body;
     try {
-        const response = await axios.post('http://localhost:5005/search', { query: question });
+        const response = await axios.post('https://zs-demo-faiss-service.onrender.com/search', { query: question });
         const context = response.data.context.join('\n');
         console.log({ context });
         res.json({ answer: context });
@@ -53,7 +53,7 @@ app.post('/upload', async (req, res) => {
         // Send file content to Python FAISS server
         const fileText = buffer.toString('utf-8');
 
-        const ingestRes = await axios.post('http://localhost:5005/ingest', {
+        const ingestRes = await axios.post('https://zs-demo-faiss-service.onrender.com/ingest', {
             text: fileText
         });
 
